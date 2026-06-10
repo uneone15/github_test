@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Product Designer</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --font-main: 'Pretendard', 'Apple SD Gothic Neo', sans-serif;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: #0a0a0f;
+      color: #e8e8f0;
+      font-family: var(--font-main);
+      overflow-x: hidden;
+    }
+
+    /* ── Nav ── */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: center;
+      gap: 2.5rem;
+      padding: 1.2rem 2rem;
+      background: rgba(10, 10, 15, 0.6);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+
+    nav a {
+      color: rgba(232,232,240,0.55);
+      text-decoration: none;
+      font-size: 0.82rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      transition: color 0.3s;
+    }
+
+    nav a:hover {
+      color: #e8e8f0;
+    }
+
+    /* ── Section base ── */
+    section {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 6rem 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* ── Gradient backgrounds ── */
+    #hero {
+      background:
+        radial-gradient(ellipse 80% 60% at 60% 40%, rgba(99,60,180,0.35) 0%, transparent 70%),
+        radial-gradient(ellipse 60% 50% at 20% 70%, rgba(30,80,180,0.25) 0%, transparent 65%),
+        #0a0a0f;
+    }
+
+    #about {
+      background:
+        radial-gradient(ellipse 70% 55% at 30% 45%, rgba(20,130,160,0.3) 0%, transparent 65%),
+        radial-gradient(ellipse 50% 60% at 75% 60%, rgba(60,40,140,0.25) 0%, transparent 60%),
+        #07080f;
+    }
+
+    #hobbies {
+      background:
+        radial-gradient(ellipse 75% 55% at 65% 35%, rgba(180,60,100,0.28) 0%, transparent 65%),
+        radial-gradient(ellipse 55% 50% at 25% 65%, rgba(100,30,160,0.22) 0%, transparent 60%),
+        #0a070f;
+    }
+
+    #sports {
+      background:
+        radial-gradient(ellipse 70% 55% at 35% 50%, rgba(20,160,100,0.28) 0%, transparent 65%),
+        radial-gradient(ellipse 55% 50% at 70% 30%, rgba(20,100,160,0.22) 0%, transparent 60%),
+        #07100a;
+    }
+
+    #goal {
+      background:
+        radial-gradient(ellipse 80% 60% at 50% 50%, rgba(200,140,40,0.25) 0%, transparent 65%),
+        radial-gradient(ellipse 55% 50% at 20% 30%, rgba(180,60,60,0.2) 0%, transparent 60%),
+        #0f0e07;
+    }
+
+    /* ── Noise overlay ── */
+    section::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+      pointer-events: none;
+      opacity: 0.4;
+    }
+
+    /* ── Fade-in animation ── */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(36px);
+      transition: opacity 0.9s cubic-bezier(0.22,1,0.36,1), transform 0.9s cubic-bezier(0.22,1,0.36,1);
+    }
+
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .fade-in:nth-child(2) { transition-delay: 0.12s; }
+    .fade-in:nth-child(3) { transition-delay: 0.24s; }
+    .fade-in:nth-child(4) { transition-delay: 0.36s; }
+
+    /* ── Content wrappers ── */
+    .content {
+      position: relative;
+      z-index: 1;
+      max-width: 760px;
+      width: 100%;
+    }
+
+    /* ── Hero ── */
+    .hero-eyebrow {
+      font-size: 0.78rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: rgba(180,160,255,0.7);
+      margin-bottom: 1.4rem;
+    }
+
+    .hero-name {
+      font-size: clamp(3rem, 8vw, 6rem);
+      font-weight: 700;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      background: linear-gradient(135deg, #ffffff 30%, rgba(180,160,255,0.8) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 1.6rem;
+    }
+
+    .hero-desc {
+      font-size: 1.15rem;
+      color: rgba(232,232,240,0.55);
+      line-height: 1.7;
+      max-width: 480px;
+    }
+
+    .scroll-hint {
+      margin-top: 3.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      color: rgba(232,232,240,0.3);
+      font-size: 0.78rem;
+      letter-spacing: 0.1em;
+    }
+
+    .scroll-hint .line {
+      width: 36px;
+      height: 1px;
+      background: rgba(232,232,240,0.25);
+    }
+
+    /* ── Section label ── */
+    .section-label {
+      font-size: 0.72rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: rgba(232,232,240,0.35);
+      margin-bottom: 1rem;
+    }
+
+    .section-title {
+      font-size: clamp(1.8rem, 4.5vw, 3rem);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1.15;
+      margin-bottom: 2.8rem;
+    }
+
+    /* ── Card grid ── */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+    }
+
+    .card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 16px;
+      padding: 1.6rem 1.8rem;
+      backdrop-filter: blur(6px);
+      transition: background 0.3s, border-color 0.3s, transform 0.3s;
+    }
+
+    .card:hover {
+      background: rgba(255,255,255,0.07);
+      border-color: rgba(255,255,255,0.15);
+      transform: translateY(-4px);
+    }
+
+    .card-icon {
+      font-size: 1.8rem;
+      margin-bottom: 0.9rem;
+    }
+
+    .card-label {
+      font-size: 0.72rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(232,232,240,0.4);
+      margin-bottom: 0.4rem;
+    }
+
+    .card-value {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #e8e8f0;
+    }
+
+    /* ── MBTI highlight ── */
+    .mbti-badge {
+      display: inline-block;
+      font-size: 2.2rem;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      background: linear-gradient(120deg, #7cb9e8, #a78bfa);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* ── Hobby / Sport items ── */
+    .item-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .item-row {
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 14px;
+      padding: 1.3rem 1.6rem;
+      transition: background 0.3s, border-color 0.3s, transform 0.3s;
+    }
+
+    .item-row:hover {
+      background: rgba(255,255,255,0.07);
+      border-color: rgba(255,255,255,0.14);
+      transform: translateX(6px);
+    }
+
+    .item-emoji {
+      font-size: 1.6rem;
+      flex-shrink: 0;
+    }
+
+    .item-text {
+      font-size: 1.05rem;
+      font-weight: 500;
+    }
+
+    .item-sub {
+      font-size: 0.82rem;
+      color: rgba(232,232,240,0.4);
+      margin-top: 0.15rem;
+    }
+
+    /* ── Goal section ── */
+    .goal-box {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.09);
+      border-radius: 20px;
+      padding: 2.6rem 2.8rem;
+      backdrop-filter: blur(8px);
+    }
+
+    .goal-quote {
+      font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+      font-weight: 600;
+      line-height: 1.6;
+      color: rgba(232,232,240,0.9);
+      margin-bottom: 2rem;
+    }
+
+    .goal-quote span {
+      background: linear-gradient(120deg, #f9ca74, #f5a623);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .goal-steps {
+      display: flex;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+    }
+
+    .step-chip {
+      font-size: 0.78rem;
+      letter-spacing: 0.06em;
+      padding: 0.4rem 0.9rem;
+      border-radius: 100px;
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.1);
+      color: rgba(232,232,240,0.6);
+    }
+
+    /* ── Footer ── */
+    footer {
+      text-align: center;
+      padding: 2.5rem 2rem;
+      color: rgba(232,232,240,0.2);
+      font-size: 0.78rem;
+      letter-spacing: 0.08em;
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="#hero">Home</a>
+    <a href="#about">About</a>
+    <a href="#hobbies">취미</a>
+    <a href="#sports">운동</a>
+    <a href="#goal">목표</a>
+  </nav>
+
+  <!-- ── Hero ── -->
+  <section id="hero">
+    <div class="content">
+      <p class="hero-eyebrow fade-in">Product Designer</p>
+      <h1 class="hero-name fade-in">안녕하세요,<br>저는 디자이너입니다.</h1>
+      <p class="hero-desc fade-in">시각디자인을 전공하고 프로덕트를 만드는 사람.<br>아이디어를 화면 위의 경험으로 바꾸는 일을 합니다.</p>
+      <div class="scroll-hint fade-in">
+        <span class="line"></span>
+        <span>Scroll to explore</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── About ── -->
+  <section id="about">
+    <div class="content">
+      <p class="section-label fade-in">About me</p>
+      <h2 class="section-title fade-in">저를 소개합니다</h2>
+      <div class="card-grid">
+        <div class="card fade-in">
+          <div class="card-icon">🧠</div>
+          <div class="card-label">MBTI</div>
+          <div class="card-value"><span class="mbti-badge">INTJ</span></div>
+        </div>
+        <div class="card fade-in">
+          <div class="card-icon">🎨</div>
+          <div class="card-label">전공</div>
+          <div class="card-value">시각디자인</div>
+        </div>
+        <div class="card fade-in">
+          <div class="card-icon">💼</div>
+          <div class="card-label">직무</div>
+          <div class="card-value">Product Designer</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Hobbies ── -->
+  <section id="hobbies">
+    <div class="content">
+      <p class="section-label fade-in">Hobbies</p>
+      <h2 class="section-title fade-in">즐기는 것들</h2>
+      <div class="item-list">
+        <div class="item-row fade-in">
+          <span class="item-emoji">📚</span>
+          <div>
+            <div class="item-text">독서</div>
+            <div class="item-sub">생각을 넓히는 조용한 시간</div>
+          </div>
+        </div>
+        <div class="item-row fade-in">
+          <span class="item-emoji">🎬</span>
+          <div>
+            <div class="item-text">영화 감상</div>
+            <div class="item-sub">스토리와 시각적 연출에서 영감을 얻어요</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Sports ── -->
+  <section id="sports">
+    <div class="content">
+      <p class="section-label fade-in">Sports</p>
+      <h2 class="section-title fade-in">몸을 움직이는 방식</h2>
+      <div class="item-list">
+        <div class="item-row fade-in">
+          <span class="item-emoji">🏊</span>
+          <div>
+            <div class="item-text">수영</div>
+            <div class="item-sub">물 속의 고요함과 집중</div>
+          </div>
+        </div>
+        <div class="item-row fade-in">
+          <span class="item-emoji">🏃</span>
+          <div>
+            <div class="item-text">러닝</div>
+            <div class="item-sub">달리면서 생각을 비워내는 시간</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Goal ── -->
+  <section id="goal">
+    <div class="content">
+      <p class="section-label fade-in">2026 Goal</p>
+      <h2 class="section-title fade-in">올해의 목표</h2>
+      <div class="goal-box fade-in">
+        <p class="goal-quote">
+          내가 원하는 앱 서비스를<br>
+          <span>A부터 Z까지</span> 직접 만들기.
+        </p>
+        <div class="goal-steps">
+          <span class="step-chip">기획</span>
+          <span class="step-chip">와이어프레임</span>
+          <span class="step-chip">UI 디자인</span>
+          <span class="step-chip">프로토타입</span>
+          <span class="step-chip">개발</span>
+          <span class="step-chip">출시</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    © 2026 Product Designer · Made with intention
+  </footer>
+
+  <script>
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+          }
+        });
+      },
+      { threshold: 0.15 }
+    );
+
+    document.querySelectorAll('.fade-in').forEach((el) => observer.observe(el));
+  </script>
+
+</body>
+</html>
