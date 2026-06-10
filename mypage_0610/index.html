@@ -5,54 +5,59 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Product Designer</title>
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
 
     :root {
       --font-main: 'Pretendard', 'Apple SD Gothic Neo', sans-serif;
+      --aurora-1: rgba(60, 210, 180, 1);
+      --aurora-2: rgba(110, 80, 230, 1);
+      --aurora-3: rgba(40, 160, 230, 1);
+      --glow-purple: rgba(150, 110, 255, 0.45);
     }
 
-    html {
-      scroll-behavior: smooth;
-    }
+    html { scroll-behavior: smooth; }
 
     body {
-      background: #0a0a0f;
-      color: #e8e8f0;
+      background: #04040d;
+      color: #dcdcf0;
       font-family: var(--font-main);
       overflow-x: hidden;
+    }
+
+    /* ── Light canvas ── */
+    #light-canvas {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
     }
 
     /* ── Nav ── */
     nav {
       position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
+      top: 0; left: 0; right: 0;
       z-index: 100;
       display: flex;
       justify-content: center;
       gap: 2.5rem;
       padding: 1.2rem 2rem;
-      background: rgba(10, 10, 15, 0.6);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid rgba(255,255,255,0.06);
+      background: rgba(4, 4, 18, 0.65);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(120, 90, 255, 0.15);
     }
 
     nav a {
-      color: rgba(232,232,240,0.55);
+      color: rgba(210, 200, 255, 0.45);
       text-decoration: none;
-      font-size: 0.82rem;
-      letter-spacing: 0.12em;
+      font-size: 0.8rem;
+      letter-spacing: 0.16em;
       text-transform: uppercase;
-      transition: color 0.3s;
+      transition: color 0.3s, text-shadow 0.3s;
     }
 
     nav a:hover {
-      color: #e8e8f0;
+      color: rgba(210, 200, 255, 0.95);
+      text-shadow: 0 0 16px rgba(160, 130, 255, 0.6);
     }
 
     /* ── Section base ── */
@@ -64,42 +69,43 @@
       padding: 6rem 2rem;
       position: relative;
       overflow: hidden;
+      z-index: 1;
     }
 
-    /* ── Gradient backgrounds ── */
+    /* ── Section backgrounds — unified deep indigo family ── */
     #hero {
       background:
-        radial-gradient(ellipse 80% 60% at 60% 40%, rgba(99,60,180,0.35) 0%, transparent 70%),
-        radial-gradient(ellipse 60% 50% at 20% 70%, rgba(30,80,180,0.25) 0%, transparent 65%),
-        #0a0a0f;
+        radial-gradient(ellipse 75% 55% at 65% 38%, rgba(80, 50, 180, 0.30) 0%, transparent 68%),
+        radial-gradient(ellipse 55% 50% at 18% 65%, rgba(30, 60, 160, 0.22) 0%, transparent 62%),
+        #04040d;
     }
 
     #about {
       background:
-        radial-gradient(ellipse 70% 55% at 30% 45%, rgba(20,130,160,0.3) 0%, transparent 65%),
-        radial-gradient(ellipse 50% 60% at 75% 60%, rgba(60,40,140,0.25) 0%, transparent 60%),
-        #07080f;
+        radial-gradient(ellipse 70% 55% at 28% 45%, rgba(30, 120, 160, 0.25) 0%, transparent 65%),
+        radial-gradient(ellipse 55% 55% at 72% 55%, rgba(70, 40, 180, 0.22) 0%, transparent 60%),
+        #05040f;
     }
 
     #hobbies {
       background:
-        radial-gradient(ellipse 75% 55% at 65% 35%, rgba(180,60,100,0.28) 0%, transparent 65%),
-        radial-gradient(ellipse 55% 50% at 25% 65%, rgba(100,30,160,0.22) 0%, transparent 60%),
-        #0a070f;
+        radial-gradient(ellipse 70% 55% at 62% 38%, rgba(60, 40, 190, 0.28) 0%, transparent 65%),
+        radial-gradient(ellipse 55% 50% at 22% 62%, rgba(20, 100, 160, 0.20) 0%, transparent 60%),
+        #04040e;
     }
 
     #sports {
       background:
-        radial-gradient(ellipse 70% 55% at 35% 50%, rgba(20,160,100,0.28) 0%, transparent 65%),
-        radial-gradient(ellipse 55% 50% at 70% 30%, rgba(20,100,160,0.22) 0%, transparent 60%),
-        #07100a;
+        radial-gradient(ellipse 68% 55% at 32% 50%, rgba(20, 140, 130, 0.24) 0%, transparent 64%),
+        radial-gradient(ellipse 55% 50% at 68% 30%, rgba(50, 40, 170, 0.20) 0%, transparent 60%),
+        #040810;
     }
 
     #goal {
       background:
-        radial-gradient(ellipse 80% 60% at 50% 50%, rgba(200,140,40,0.25) 0%, transparent 65%),
-        radial-gradient(ellipse 55% 50% at 20% 30%, rgba(180,60,60,0.2) 0%, transparent 60%),
-        #0f0e07;
+        radial-gradient(ellipse 75% 60% at 50% 50%, rgba(80, 50, 180, 0.26) 0%, transparent 65%),
+        radial-gradient(ellipse 50% 50% at 18% 28%, rgba(30, 100, 160, 0.18) 0%, transparent 58%),
+        #05040d;
     }
 
     /* ── Noise overlay ── */
@@ -107,28 +113,24 @@
       content: '';
       position: absolute;
       inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
       pointer-events: none;
-      opacity: 0.4;
+      opacity: 0.5;
     }
 
-    /* ── Fade-in animation ── */
+    /* ── Fade-in ── */
     .fade-in {
       opacity: 0;
-      transform: translateY(36px);
-      transition: opacity 0.9s cubic-bezier(0.22,1,0.36,1), transform 0.9s cubic-bezier(0.22,1,0.36,1);
+      transform: translateY(32px);
+      transition: opacity 1s cubic-bezier(0.22,1,0.36,1), transform 1s cubic-bezier(0.22,1,0.36,1);
     }
 
-    .fade-in.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
     .fade-in:nth-child(2) { transition-delay: 0.12s; }
     .fade-in:nth-child(3) { transition-delay: 0.24s; }
     .fade-in:nth-child(4) { transition-delay: 0.36s; }
 
-    /* ── Content wrappers ── */
+    /* ── Content ── */
     .content {
       position: relative;
       z-index: 1;
@@ -138,29 +140,31 @@
 
     /* ── Hero ── */
     .hero-eyebrow {
-      font-size: 0.78rem;
-      letter-spacing: 0.22em;
+      font-size: 0.76rem;
+      letter-spacing: 0.28em;
       text-transform: uppercase;
-      color: rgba(180,160,255,0.7);
+      color: rgba(120, 210, 200, 0.75);
       margin-bottom: 1.4rem;
+      text-shadow: 0 0 20px rgba(60, 210, 180, 0.4);
     }
 
     .hero-name {
-      font-size: clamp(3rem, 8vw, 6rem);
+      font-size: clamp(2.8rem, 7.5vw, 5.6rem);
       font-weight: 700;
-      line-height: 1.05;
-      letter-spacing: -0.02em;
-      background: linear-gradient(135deg, #ffffff 30%, rgba(180,160,255,0.8) 100%);
+      line-height: 1.06;
+      letter-spacing: -0.025em;
+      background: linear-gradient(130deg, #ffffff 20%, rgba(160, 210, 255, 0.85) 55%, rgba(140, 100, 255, 0.75) 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
       margin-bottom: 1.6rem;
+      filter: drop-shadow(0 0 30px rgba(120, 100, 255, 0.25));
     }
 
     .hero-desc {
-      font-size: 1.15rem;
-      color: rgba(232,232,240,0.55);
-      line-height: 1.7;
+      font-size: 1.1rem;
+      color: rgba(200, 200, 230, 0.5);
+      line-height: 1.75;
       max-width: 480px;
     }
 
@@ -168,36 +172,39 @@
       margin-top: 3.5rem;
       display: flex;
       align-items: center;
-      gap: 0.7rem;
-      color: rgba(232,232,240,0.3);
-      font-size: 0.78rem;
-      letter-spacing: 0.1em;
+      gap: 0.8rem;
+      color: rgba(200, 200, 240, 0.28);
+      font-size: 0.76rem;
+      letter-spacing: 0.14em;
     }
 
     .scroll-hint .line {
-      width: 36px;
-      height: 1px;
-      background: rgba(232,232,240,0.25);
+      width: 36px; height: 1px;
+      background: linear-gradient(to right, rgba(100, 180, 255, 0.3), transparent);
     }
 
     /* ── Section label ── */
     .section-label {
-      font-size: 0.72rem;
-      letter-spacing: 0.22em;
+      font-size: 0.7rem;
+      letter-spacing: 0.26em;
       text-transform: uppercase;
-      color: rgba(232,232,240,0.35);
-      margin-bottom: 1rem;
+      color: rgba(100, 200, 190, 0.5);
+      margin-bottom: 0.9rem;
+      text-shadow: 0 0 12px rgba(60, 210, 180, 0.3);
     }
 
     .section-title {
-      font-size: clamp(1.8rem, 4.5vw, 3rem);
+      font-size: clamp(1.8rem, 4.5vw, 2.9rem);
       font-weight: 700;
       letter-spacing: -0.02em;
       line-height: 1.15;
       margin-bottom: 2.8rem;
+      text-shadow:
+        0 0 40px rgba(140, 110, 255, 0.35),
+        0 0 80px rgba(80, 60, 200, 0.15);
     }
 
-    /* ── Card grid ── */
+    /* ── Cards ── */
     .card-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -205,142 +212,148 @@
     }
 
     .card {
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 16px;
+      position: relative;
+      overflow: hidden;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(120, 100, 255, 0.14);
+      border-radius: 18px;
       padding: 1.6rem 1.8rem;
-      backdrop-filter: blur(6px);
-      transition: background 0.3s, border-color 0.3s, transform 0.3s;
+      backdrop-filter: blur(8px);
+      transition: border-color 0.4s, transform 0.4s, box-shadow 0.4s;
     }
+
+    .card::after {
+      content: '';
+      position: absolute;
+      top: -60%;
+      left: -60%;
+      width: 60%;
+      height: 200%;
+      background: linear-gradient(105deg, transparent 40%, rgba(160,130,255,0.10) 50%, transparent 60%);
+      transform: skewX(-15deg);
+      transition: left 0.6s ease;
+    }
+
+    .card:hover::after { left: 140%; }
 
     .card:hover {
-      background: rgba(255,255,255,0.07);
-      border-color: rgba(255,255,255,0.15);
-      transform: translateY(-4px);
+      border-color: rgba(140, 110, 255, 0.35);
+      transform: translateY(-5px);
+      box-shadow: 0 8px 32px rgba(100, 70, 220, 0.2), 0 0 0 1px rgba(140,110,255,0.08);
     }
 
-    .card-icon {
-      font-size: 1.8rem;
-      margin-bottom: 0.9rem;
-    }
+    .card-icon { font-size: 1.8rem; margin-bottom: 0.9rem; }
 
     .card-label {
-      font-size: 0.72rem;
-      letter-spacing: 0.14em;
+      font-size: 0.7rem;
+      letter-spacing: 0.16em;
       text-transform: uppercase;
-      color: rgba(232,232,240,0.4);
+      color: rgba(180, 170, 220, 0.38);
       margin-bottom: 0.4rem;
     }
 
-    .card-value {
-      font-size: 1.1rem;
-      font-weight: 600;
-      color: #e8e8f0;
-    }
+    .card-value { font-size: 1.1rem; font-weight: 600; color: #dcdcf0; }
 
-    /* ── MBTI highlight ── */
+    /* ── MBTI ── */
     .mbti-badge {
       display: inline-block;
       font-size: 2.2rem;
       font-weight: 800;
       letter-spacing: 0.06em;
-      background: linear-gradient(120deg, #7cb9e8, #a78bfa);
+      background: linear-gradient(120deg, #60d8c8, #a78bfa);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
+      filter: drop-shadow(0 0 12px rgba(100, 200, 190, 0.3));
     }
 
-    /* ── Hobby / Sport items ── */
-    .item-list {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-    }
+    /* ── Item list ── */
+    .item-list { display: flex; flex-direction: column; gap: 1rem; }
 
     .item-row {
+      position: relative;
+      overflow: hidden;
       display: flex;
       align-items: center;
       gap: 1.2rem;
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(255,255,255,0.07);
-      border-radius: 14px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(100, 90, 220, 0.12);
+      border-radius: 16px;
       padding: 1.3rem 1.6rem;
-      transition: background 0.3s, border-color 0.3s, transform 0.3s;
+      transition: border-color 0.4s, transform 0.4s, box-shadow 0.4s;
     }
 
     .item-row:hover {
-      background: rgba(255,255,255,0.07);
-      border-color: rgba(255,255,255,0.14);
+      border-color: rgba(120, 200, 190, 0.3);
       transform: translateX(6px);
+      box-shadow: -4px 0 24px rgba(60, 200, 180, 0.12), 0 4px 20px rgba(60, 80, 200, 0.1);
     }
 
-    .item-emoji {
-      font-size: 1.6rem;
-      flex-shrink: 0;
-    }
+    .item-emoji { font-size: 1.6rem; flex-shrink: 0; }
+    .item-text { font-size: 1.05rem; font-weight: 500; }
+    .item-sub { font-size: 0.82rem; color: rgba(190, 190, 225, 0.38); margin-top: 0.15rem; }
 
-    .item-text {
-      font-size: 1.05rem;
-      font-weight: 500;
-    }
-
-    .item-sub {
-      font-size: 0.82rem;
-      color: rgba(232,232,240,0.4);
-      margin-top: 0.15rem;
-    }
-
-    /* ── Goal section ── */
+    /* ── Goal ── */
     .goal-box {
-      background: rgba(255,255,255,0.04);
-      border: 1px solid rgba(255,255,255,0.09);
-      border-radius: 20px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(110, 90, 230, 0.18);
+      border-radius: 22px;
       padding: 2.6rem 2.8rem;
-      backdrop-filter: blur(8px);
+      backdrop-filter: blur(10px);
+      box-shadow: inset 0 1px 0 rgba(180,160,255,0.07), 0 0 60px rgba(80,60,200,0.10);
     }
 
     .goal-quote {
       font-size: clamp(1.1rem, 2.5vw, 1.5rem);
       font-weight: 600;
-      line-height: 1.6;
-      color: rgba(232,232,240,0.9);
+      line-height: 1.65;
+      color: rgba(220, 215, 245, 0.88);
       margin-bottom: 2rem;
+      text-shadow: 0 0 24px rgba(120, 100, 255, 0.2);
     }
 
     .goal-quote span {
-      background: linear-gradient(120deg, #f9ca74, #f5a623);
+      background: linear-gradient(120deg, #60d8c8, #a78bfa);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
+      filter: drop-shadow(0 0 8px rgba(100,200,190,0.25));
     }
 
-    .goal-steps {
-      display: flex;
-      gap: 0.6rem;
-      flex-wrap: wrap;
-    }
+    .goal-steps { display: flex; gap: 0.6rem; flex-wrap: wrap; }
 
     .step-chip {
-      font-size: 0.78rem;
-      letter-spacing: 0.06em;
-      padding: 0.4rem 0.9rem;
+      font-size: 0.76rem;
+      letter-spacing: 0.07em;
+      padding: 0.4rem 0.95rem;
       border-radius: 100px;
-      background: rgba(255,255,255,0.07);
-      border: 1px solid rgba(255,255,255,0.1);
-      color: rgba(232,232,240,0.6);
+      background: rgba(100, 80, 220, 0.10);
+      border: 1px solid rgba(120, 100, 255, 0.18);
+      color: rgba(200, 190, 255, 0.55);
+      transition: background 0.3s, border-color 0.3s, color 0.3s;
+    }
+
+    .step-chip:hover {
+      background: rgba(100, 80, 220, 0.22);
+      border-color: rgba(140, 120, 255, 0.4);
+      color: rgba(220, 210, 255, 0.9);
     }
 
     /* ── Footer ── */
     footer {
+      position: relative;
+      z-index: 1;
       text-align: center;
       padding: 2.5rem 2rem;
-      color: rgba(232,232,240,0.2);
-      font-size: 0.78rem;
-      letter-spacing: 0.08em;
+      color: rgba(180, 170, 220, 0.18);
+      font-size: 0.76rem;
+      letter-spacing: 0.1em;
     }
   </style>
 </head>
 <body>
+
+  <canvas id="light-canvas"></canvas>
 
   <nav>
     <a href="#hero">Home</a>
@@ -354,7 +367,7 @@
   <section id="hero">
     <div class="content">
       <p class="hero-eyebrow fade-in">Product Designer</p>
-      <h1 class="hero-name fade-in">안녕하세요,<br>저는 프로덕트 디자이너입니다.</h1>
+      <h1 class="hero-name fade-in">안녕하세요,<br>저는 디자이너입니다.</h1>
       <p class="hero-desc fade-in">시각디자인을 전공하고 프로덕트를 만드는 사람.<br>아이디어를 화면 위의 경험으로 바꾸는 일을 합니다.</p>
       <div class="scroll-hint fade-in">
         <span class="line"></span>
@@ -458,23 +471,218 @@
     </div>
   </section>
 
-  <footer>
-    © 2026 Product Designer · Made with intention
-  </footer>
+  <footer>© 2026 Product Designer · Made with intention</footer>
 
   <script>
+    /* ── Fade-in ── */
     const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-          }
-        });
-      },
-      { threshold: 0.15 }
+      (entries) => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }),
+      { threshold: 0.14 }
     );
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 
-    document.querySelectorAll('.fade-in').forEach((el) => observer.observe(el));
+    /* ── Canvas setup ── */
+    const canvas = document.getElementById('light-canvas');
+    const ctx    = canvas.getContext('2d');
+    let W, H, scrollY = 0;
+
+    function resize() { W = canvas.width = window.innerWidth; H = canvas.height = window.innerHeight; }
+    resize();
+    window.addEventListener('resize', resize);
+    window.addEventListener('scroll', () => { scrollY = window.scrollY; }, { passive: true });
+
+    /* ── Aurora bands ── */
+    const auroraLayers = [
+      { yFrac: 0.22, h: 0.18, color: [60,  210, 185], alpha: 0.055, spd: 0.00018, ph: 0.0 },
+      { yFrac: 0.42, h: 0.15, color: [100,  75, 230], alpha: 0.050, spd: 0.00013, ph: 2.2 },
+      { yFrac: 0.63, h: 0.17, color: [35,  155, 225], alpha: 0.048, spd: 0.00016, ph: 4.5 },
+      { yFrac: 0.80, h: 0.13, color: [130,  55, 210], alpha: 0.042, spd: 0.00021, ph: 1.4 },
+    ];
+
+    function drawAurora(t) {
+      auroraLayers.forEach(layer => {
+        const [r, g, b] = layer.color;
+        const cy  = (layer.yFrac + Math.sin(t * layer.spd + layer.ph) * 0.04) * H - scrollY * 0.06;
+        const bh  = layer.h * H;
+        const pts = 12;
+
+        /* top edge wave */
+        ctx.beginPath();
+        for (let i = 0; i <= pts; i++) {
+          const x = (i / pts) * W;
+          const wave = Math.sin(i / pts * Math.PI * 4 + t * layer.spd * 6 + layer.ph) * bh * 0.28;
+          i === 0 ? ctx.moveTo(x, cy - bh / 2 + wave) : ctx.lineTo(x, cy - bh / 2 + wave);
+        }
+        for (let i = pts; i >= 0; i--) {
+          const x = (i / pts) * W;
+          const wave = Math.sin(i / pts * Math.PI * 4 + t * layer.spd * 6 + layer.ph + 1.2) * bh * 0.28;
+          ctx.lineTo(x, cy + bh / 2 + wave);
+        }
+        ctx.closePath();
+
+        const grad = ctx.createLinearGradient(0, cy - bh, 0, cy + bh);
+        grad.addColorStop(0,   `rgba(${r},${g},${b},0)`);
+        grad.addColorStop(0.5, `rgba(${r},${g},${b},${layer.alpha})`);
+        grad.addColorStop(1,   `rgba(${r},${g},${b},0)`);
+        ctx.fillStyle = grad;
+        ctx.fill();
+      });
+    }
+
+    /* ── Nebula orbs ── */
+    const orbs = [
+      { x: 0.70, y: 0.22, r: 0.40, color: [90,  60, 200], spd: 0.00017, ph: 0.0, px: 0.08 },
+      { x: 0.18, y: 0.58, r: 0.34, color: [40, 160, 200], spd: 0.00012, ph: 1.9, px: 0.11 },
+      { x: 0.52, y: 0.78, r: 0.28, color: [60, 200, 180], spd: 0.00021, ph: 3.5, px: 0.07 },
+      { x: 0.84, y: 0.52, r: 0.26, color: [80,  50, 210], spd: 0.00015, ph: 0.8, px: 0.10 },
+      { x: 0.32, y: 0.18, r: 0.30, color: [40, 120, 220], spd: 0.00019, ph: 2.6, px: 0.09 },
+    ];
+
+    function drawOrbs(t) {
+      orbs.forEach(o => {
+        const dx = Math.sin(t * o.spd + o.ph) * 0.06 * W;
+        const dy = Math.cos(t * o.spd * 0.7 + o.ph) * 0.05 * H;
+        const px = o.x * W + dx;
+        const py = o.y * H + dy - scrollY * o.px;
+        const rad = o.r * Math.min(W, H);
+        const [r, g, b] = o.color;
+        const g2 = ctx.createRadialGradient(px, py, 0, px, py, rad);
+        g2.addColorStop(0,   `rgba(${r},${g},${b},0.12)`);
+        g2.addColorStop(0.4, `rgba(${r},${g},${b},0.05)`);
+        g2.addColorStop(1,   `rgba(${r},${g},${b},0)`);
+        ctx.beginPath();
+        ctx.arc(px, py, rad, 0, Math.PI * 2);
+        ctx.fillStyle = g2;
+        ctx.fill();
+      });
+    }
+
+    /* ── Stars ── */
+    const STAR_COUNT = 160;
+    const stars = Array.from({ length: STAR_COUNT }, () => makeStar(true));
+
+    function makeStar(randomY) {
+      return {
+        x:       Math.random() * window.innerWidth,
+        y:       randomY ? Math.random() * window.innerHeight : window.innerHeight + 4,
+        r:       Math.random() * 1.1 + 0.3,
+        speed:   Math.random() * 0.32 + 0.07,
+        opacity: Math.random() * 0.45 + 0.18,
+        twinkle: Math.random() * Math.PI * 2,
+        drift:   (Math.random() - 0.5) * 0.14,
+      };
+    }
+
+    function drawStars() {
+      stars.forEach(s => {
+        s.y       -= s.speed;
+        s.x       += s.drift;
+        s.twinkle += 0.017;
+        const alpha = s.opacity * (0.72 + 0.28 * Math.sin(s.twinkle));
+        if (s.y < -4) Object.assign(s, makeStar(false), { x: Math.random() * W });
+
+        ctx.beginPath();
+        ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(200, 210, 255, ${alpha})`;
+        ctx.fill();
+
+        const glow = ctx.createRadialGradient(s.x, s.y, 0, s.x, s.y, s.r * 4.5);
+        glow.addColorStop(0, `rgba(160, 190, 255, ${alpha * 0.3})`);
+        glow.addColorStop(1, 'rgba(160, 190, 255, 0)');
+        ctx.beginPath();
+        ctx.arc(s.x, s.y, s.r * 4.5, 0, Math.PI * 2);
+        ctx.fillStyle = glow;
+        ctx.fill();
+      });
+    }
+
+    /* ── Cursor light ── */
+    const mouse = { x: W / 2, y: H / 2, tx: W / 2, ty: H / 2 };
+    window.addEventListener('mousemove', e => { mouse.tx = e.clientX; mouse.ty = e.clientY; });
+
+    function drawCursorLight() {
+      mouse.x += (mouse.tx - mouse.x) * 0.08;
+      mouse.y += (mouse.ty - mouse.y) * 0.08;
+      const g = ctx.createRadialGradient(mouse.x, mouse.y, 0, mouse.x, mouse.y, 200);
+      g.addColorStop(0,   'rgba(140, 200, 255, 0.08)');
+      g.addColorStop(0.4, 'rgba(100, 160, 255, 0.03)');
+      g.addColorStop(1,   'rgba(100, 140, 255, 0)');
+      ctx.beginPath();
+      ctx.arc(mouse.x, mouse.y, 200, 0, Math.PI * 2);
+      ctx.fillStyle = g;
+      ctx.fill();
+    }
+
+    /* ── Sparkles ── */
+    const sparkles = [];
+    const sparkColors = [[200,230,255],[160,200,255],[180,160,255],[100,220,210]];
+
+    function spawnSparkles(x, y, count) {
+      for (let i = 0; i < count; i++) {
+        const angle = Math.random() * Math.PI * 2;
+        const spd   = Math.random() * 1.6 + 0.4;
+        sparkles.push({
+          x, y,
+          vx: Math.cos(angle) * spd,
+          vy: Math.sin(angle) * spd - 0.5,
+          r:  Math.random() * 1.5 + 0.3,
+          life: 1.0,
+          decay: Math.random() * 0.020 + 0.012,
+          color: sparkColors[Math.floor(Math.random() * sparkColors.length)],
+        });
+      }
+    }
+
+    let lastSpawn = 0;
+    window.addEventListener('mousemove', e => {
+      const now = Date.now();
+      if (now - lastSpawn > 42) { spawnSparkles(e.clientX, e.clientY, 2); lastSpawn = now; }
+    });
+    window.addEventListener('click', e => spawnSparkles(e.clientX, e.clientY, 18));
+
+    function drawSparkles() {
+      for (let i = sparkles.length - 1; i >= 0; i--) {
+        const s = sparkles[i];
+        s.x += s.vx; s.y += s.vy; s.vy += 0.03; s.life -= s.decay;
+        if (s.life <= 0) { sparkles.splice(i, 1); continue; }
+
+        const [r, g, b] = s.color;
+        ctx.save();
+        ctx.globalAlpha = s.life;
+        ctx.translate(s.x, s.y);
+
+        ctx.beginPath();
+        ctx.arc(0, 0, s.r, 0, Math.PI * 2);
+        ctx.fillStyle = `rgb(${r},${g},${b})`;
+        ctx.fill();
+
+        const ray = s.r * 5 * s.life;
+        ctx.strokeStyle = `rgba(${r},${g},${b},${s.life * 0.6})`;
+        ctx.lineWidth = s.r * 0.55;
+        ctx.beginPath(); ctx.moveTo(0, -ray); ctx.lineTo(0, ray);   ctx.stroke();
+        ctx.beginPath(); ctx.moveTo(-ray, 0); ctx.lineTo(ray, 0);   ctx.stroke();
+
+        const glow = ctx.createRadialGradient(0, 0, 0, 0, 0, s.r * 7);
+        glow.addColorStop(0, `rgba(${r},${g},${b},${s.life * 0.28})`);
+        glow.addColorStop(1, `rgba(${r},${g},${b},0)`);
+        ctx.beginPath(); ctx.arc(0, 0, s.r * 7, 0, Math.PI * 2);
+        ctx.fillStyle = glow; ctx.fill();
+
+        ctx.restore();
+      }
+    }
+
+    /* ── Loop ── */
+    function loop(t) {
+      ctx.clearRect(0, 0, W, H);
+      drawAurora(t);
+      drawOrbs(t);
+      drawCursorLight();
+      drawStars();
+      drawSparkles();
+      requestAnimationFrame(loop);
+    }
+    requestAnimationFrame(loop);
   </script>
 
 </body>
