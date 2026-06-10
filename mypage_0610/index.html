@@ -138,6 +138,72 @@
       width: 100%;
     }
 
+    /* ── Hero layout ── */
+    .hero-inner {
+      display: flex;
+      align-items: center;
+      gap: 4rem;
+      width: 100%;
+      max-width: 980px;
+    }
+
+    .hero-text { flex: 1; min-width: 0; }
+
+    .hero-visual {
+      flex-shrink: 0;
+      width: 320px;
+      height: 320px;
+      position: relative;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50%       { transform: translateY(-12px) rotate(1deg); }
+    }
+
+    @keyframes orbit {
+      from { transform: rotate(0deg) translateX(110px) rotate(0deg); }
+      to   { transform: rotate(360deg) translateX(110px) rotate(-360deg); }
+    }
+
+    @keyframes orbit2 {
+      from { transform: rotate(120deg) translateX(80px) rotate(-120deg); }
+      to   { transform: rotate(480deg) translateX(80px) rotate(-480deg); }
+    }
+
+    @keyframes orbit3 {
+      from { transform: rotate(240deg) translateX(60px) rotate(-240deg); }
+      to   { transform: rotate(600deg) translateX(60px) rotate(-600deg); }
+    }
+
+    @keyframes ring-pulse {
+      0%, 100% { opacity: 0.18; transform: scale(1); }
+      50%       { opacity: 0.30; transform: scale(1.04); }
+    }
+
+    .design-visual {
+      width: 100%;
+      height: 100%;
+      animation: float 6s ease-in-out infinite;
+    }
+
+    .orbit-dot {
+      position: absolute;
+      top: 50%; left: 50%;
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      margin: -5px 0 0 -5px;
+    }
+
+    .orbit-dot:nth-child(1) { animation: orbit  9s linear infinite; background: rgba(100,220,210,0.9); box-shadow: 0 0 10px rgba(100,220,210,0.8); }
+    .orbit-dot:nth-child(2) { animation: orbit2 7s linear infinite; background: rgba(160,130,255,0.9); box-shadow: 0 0 10px rgba(160,130,255,0.8); }
+    .orbit-dot:nth-child(3) { animation: orbit3 5s linear infinite; background: rgba(140,200,255,0.9); box-shadow: 0 0 10px rgba(140,200,255,0.8); width:7px; height:7px; }
+
+    @media (max-width: 700px) {
+      .hero-inner   { flex-direction: column; gap: 2.5rem; }
+      .hero-visual  { width: 220px; height: 220px; }
+    }
+
     /* ── Hero ── */
     @keyframes aurora-shift {
       0%   { background-position: 0% 50%; }
@@ -426,16 +492,96 @@
 
   <!-- ── Hero ── -->
   <section id="hero">
-    <div class="content">
-      <p class="hero-eyebrow fade-in">Product Designer</p>
-      <div class="hero-name-wrap fade-in">
-        <h1 class="hero-name">안녕하세요,<br>저는 디자이너입니다.</h1>
+    <div class="hero-inner">
+
+      <!-- 텍스트 -->
+      <div class="hero-text">
+        <p class="hero-eyebrow fade-in">Product Designer</p>
+        <div class="hero-name-wrap fade-in">
+          <h1 class="hero-name">안녕하세요,<br>저는 프로덕트<br>디자이너입니다.</h1>
+        </div>
+        <p class="hero-desc fade-in">시각디자인을 전공하고 프로덕트를 만드는 사람.<br>아이디어를 화면 위의 경험으로 바꾸는 일을 합니다.</p>
+        <div class="scroll-hint fade-in">
+          <span class="line"></span>
+          <span>Scroll to explore</span>
+        </div>
       </div>
-      <p class="hero-desc fade-in">시각디자인을 전공하고 프로덕트를 만드는 사람.<br>아이디어를 화면 위의 경험으로 바꾸는 일을 합니다.</p>
-      <div class="scroll-hint fade-in">
-        <span class="line"></span>
-        <span>Scroll to explore</span>
+
+      <!-- 디자인 일러스트 -->
+      <div class="hero-visual fade-in">
+        <div class="orbit-dot"></div>
+        <div class="orbit-dot"></div>
+        <div class="orbit-dot"></div>
+        <svg class="design-visual" viewBox="0 0 320 320" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- 배경 원 -->
+          <circle cx="160" cy="160" r="130" stroke="rgba(120,100,255,0.18)" stroke-width="1" style="animation: ring-pulse 4s ease-in-out infinite;"/>
+          <circle cx="160" cy="160" r="100" stroke="rgba(60,200,180,0.14)" stroke-width="1" style="animation: ring-pulse 4s ease-in-out infinite 1s;"/>
+          <circle cx="160" cy="160" r="70"  stroke="rgba(140,180,255,0.12)" stroke-width="1" style="animation: ring-pulse 4s ease-in-out infinite 2s;"/>
+
+          <!-- 중앙 화면 프레임 -->
+          <rect x="90" y="100" width="140" height="105" rx="10" fill="rgba(30,25,60,0.7)" stroke="rgba(120,100,255,0.4)" stroke-width="1.5"/>
+          <!-- 화면 상단 바 -->
+          <rect x="90" y="100" width="140" height="18" rx="10" fill="rgba(80,60,180,0.5)"/>
+          <circle cx="104" cy="109" r="3.5" fill="rgba(255,100,100,0.6)"/>
+          <circle cx="116" cy="109" r="3.5" fill="rgba(255,200,60,0.6)"/>
+          <circle cx="128" cy="109" r="3.5" fill="rgba(60,210,130,0.6)"/>
+
+          <!-- 화면 안 와이어프레임 요소 -->
+          <rect x="102" y="127" width="55" height="7"  rx="3.5" fill="rgba(160,140,255,0.45)"/>
+          <rect x="102" y="140" width="36" height="5"  rx="2.5" fill="rgba(100,200,200,0.30)"/>
+          <rect x="102" y="151" width="44" height="5"  rx="2.5" fill="rgba(100,200,200,0.22)"/>
+          <rect x="102" y="162" width="30" height="5"  rx="2.5" fill="rgba(100,200,200,0.18)"/>
+          <!-- 화면 안 이미지 블록 -->
+          <rect x="168" y="127" width="48" height="46" rx="6" fill="rgba(80,60,180,0.4)" stroke="rgba(120,100,255,0.25)" stroke-width="1"/>
+          <circle cx="184" cy="141" r="6" fill="rgba(255,220,100,0.35)"/>
+          <path d="M168 163 L184 148 L196 158 L204 150 L216 163Z" fill="rgba(60,200,180,0.3)"/>
+
+          <!-- 하단 버튼 -->
+          <rect x="102" y="178" width="50" height="16" rx="8" fill="rgba(100,80,220,0.5)" stroke="rgba(140,120,255,0.4)" stroke-width="1"/>
+          <rect x="160" y="178" width="32" height="16" rx="8" fill="rgba(30,25,60,0.4)" stroke="rgba(100,90,200,0.25)" stroke-width="1"/>
+
+          <!-- 펜툴 아이콘 (우측 상단) -->
+          <g transform="translate(230,75)">
+            <circle cx="0" cy="0" r="18" fill="rgba(60,200,180,0.12)" stroke="rgba(60,200,180,0.35)" stroke-width="1.2"/>
+            <path d="M-6 6 L0 -7 L6 6 L0 4Z" fill="rgba(60,210,185,0.8)"/>
+            <circle cx="0" cy="-7" r="2" fill="rgba(255,255,255,0.9)"/>
+          </g>
+
+          <!-- 컬러 팔레트 아이콘 (좌측 하단) -->
+          <g transform="translate(82,240)">
+            <circle cx="0"  cy="0" r="18" fill="rgba(120,80,220,0.12)" stroke="rgba(120,80,220,0.35)" stroke-width="1.2"/>
+            <circle cx="-5" cy="-2" r="4" fill="rgba(255,100,130,0.75)"/>
+            <circle cx="4"  cy="-4" r="4" fill="rgba(100,180,255,0.75)"/>
+            <circle cx="5"  cy="5"  r="4" fill="rgba(100,220,180,0.75)"/>
+            <circle cx="-4" cy="6"  r="4" fill="rgba(255,210,80,0.75)"/>
+          </g>
+
+          <!-- 격자 아이콘 (좌측 상단) -->
+          <g transform="translate(82,78)">
+            <circle cx="0" cy="0" r="18" fill="rgba(140,180,255,0.10)" stroke="rgba(140,180,255,0.32)" stroke-width="1.2"/>
+            <line x1="-7" y1="-7" x2="-7" y2="7"  stroke="rgba(180,200,255,0.7)" stroke-width="1.2"/>
+            <line x1="0"  y1="-7" x2="0"  y2="7"  stroke="rgba(180,200,255,0.7)" stroke-width="1.2"/>
+            <line x1="7"  y1="-7" x2="7"  y2="7"  stroke="rgba(180,200,255,0.7)" stroke-width="1.2"/>
+            <line x1="-7" y1="-7" x2="7"  y2="-7" stroke="rgba(180,200,255,0.7)" stroke-width="1.2"/>
+            <line x1="-7" y1="0"  x2="7"  y2="0"  stroke="rgba(180,200,255,0.7)" stroke-width="1.2"/>
+            <line x1="-7" y1="7"  x2="7"  y2="7"  stroke="rgba(180,200,255,0.7)" stroke-width="1.2"/>
+          </g>
+
+          <!-- 레이어 아이콘 (우측 하단) -->
+          <g transform="translate(238,242)">
+            <circle cx="0" cy="0" r="18" fill="rgba(200,140,255,0.10)" stroke="rgba(200,140,255,0.32)" stroke-width="1.2"/>
+            <rect x="-8" y="-2" width="16" height="10" rx="2" fill="none" stroke="rgba(200,160,255,0.7)" stroke-width="1.2"/>
+            <rect x="-8" y="-7" width="16" height="10" rx="2" fill="none" stroke="rgba(200,160,255,0.45)" stroke-width="1.2"/>
+          </g>
+
+          <!-- 연결선 -->
+          <line x1="96" y1="90"  x2="100" y2="100" stroke="rgba(140,180,255,0.2)" stroke-width="1" stroke-dasharray="3,3"/>
+          <line x1="222" y1="92" x2="218" y2="100" stroke="rgba(60,200,180,0.2)"  stroke-width="1" stroke-dasharray="3,3"/>
+          <line x1="96" y1="228" x2="100" y2="210" stroke="rgba(120,80,220,0.2)"  stroke-width="1" stroke-dasharray="3,3"/>
+          <line x1="222" y1="228" x2="218" y2="210" stroke="rgba(200,140,255,0.2)" stroke-width="1" stroke-dasharray="3,3"/>
+        </svg>
       </div>
+
     </div>
   </section>
 
