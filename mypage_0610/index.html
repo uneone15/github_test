@@ -544,6 +544,45 @@
     );
     document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 
+    /* ── Title stars ── */
+    const titleWrap = document.querySelector('.hero-name-wrap');
+    const starGlyphs  = ['✦', '✧', '★', '✴', '⋆', '·', '✺'];
+    const starPalette = [
+      'rgba(200,230,255,0.95)',
+      'rgba(160,200,255,0.90)',
+      'rgba(180,150,255,0.95)',
+      'rgba(100,220,210,0.90)',
+      'rgba(255,255,255,0.95)',
+      'rgba(140,180,255,0.85)',
+    ];
+
+    function spawnTitleStar() {
+      const wrap = titleWrap.getBoundingClientRect();
+      /* spread slightly outside the title bounds for a halo feel */
+      const pad  = 32;
+      const x    = -pad + Math.random() * (wrap.width  + pad * 2);
+      const y    = -pad + Math.random() * (wrap.height + pad * 2);
+      const size = Math.random() * 14 + 7;
+      const dur  = Math.random() * 1400 + 800;
+
+      const el = document.createElement('span');
+      el.className   = 'title-star';
+      el.textContent = starGlyphs[Math.floor(Math.random() * starGlyphs.length)];
+      el.style.cssText = `
+        left: ${x}px;
+        top: ${y}px;
+        font-size: ${size}px;
+        color: ${starPalette[Math.floor(Math.random() * starPalette.length)]};
+        text-shadow: 0 0 ${size * 1.2}px currentColor;
+        animation-duration: ${dur}ms;
+      `;
+      titleWrap.appendChild(el);
+      setTimeout(() => el.remove(), dur);
+    }
+
+    /* spawn a new star every ~180 ms */
+    setInterval(spawnTitleStar, 180);
+
     /* ── Canvas setup ── */
     const canvas = document.getElementById('light-canvas');
     const ctx    = canvas.getContext('2d');
